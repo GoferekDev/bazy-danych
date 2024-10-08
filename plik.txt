@@ -1,2 +1,3 @@
 <WSTAW TEKST/ZAPIS/NOTATKE>
+Oh boy I'm sure there will be no merge conflict!
 Hello world!test 
