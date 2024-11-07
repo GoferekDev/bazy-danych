@@ -12,18 +12,21 @@ CREATE TABLE postac (
 INSERT INTO postac VALUES (
 default,
 'Bjorn',
+'wiking',
 '1522-02-05',
 502
 ), 
 (
 default,
 'Drozd',
+'ptak',
 '1000-01-01',
 1024
 ),
 (
 default,
 'Tesciowa',
+'kobieta',
 '1490-02-11',
 534
 );
@@ -59,8 +62,26 @@ default,
 );
 
 #3.1
+CREATE TABLE izba(
+adres_budynku VARCHAR(40) NOT NULL,
+nazwa_izby VARCHAR(40) NOT NULL,
+metraz INT UNSIGNED,
+wlasciciel INT,
+PRIMARY KEY(adres_budynku, nazwa_izby),
+FOREIGN KEY(wlasciciel) REFERENCES postac(id_postaci) ON DELETE SET NULL
+);
+
 #3.2
+ALTER TABLE izba ADD kolor VARCHAR(40) DEFAULT 'czarny';
+
 #3.3
+INSERT INTO izba VALUES(
+'spizarniana 1',
+'spizarnia',
+8,
+1,
+default
+);
 
 #4.1
 CREATE TABLE przetwory (
@@ -86,27 +107,80 @@ default,
 );
 
 #5.1
+INSERT INTO postac VALUES
+(
+default,
+'wiking 1',
+'wiking',
+'1432-03-06',
+592
+),
+(
+'wiking 2',
+'wiking',
+'1643-07-05',
+381
+),
+(
+'wiking 3',
+'wiking',
+'1677-04-04',
+347
+),
+(
+'wiking 4',
+'wiking',
+'1540-02-01',
+484
+),
+(
+'wiking 5',
+'wiking',
+'1380-05-07',
+704
+);
+
 #5.2
-CREATE TABLE `statek` (
+CREATE TABLE statek (
   nazwa_statku varchar(40) NOT NULL,
   rodzaj_statku enum('drakkar','galeon','kontenerowiec'),
   data_wodowania date,
   max_ladownosc int unsigned,
   PRIMARY KEY (nazwa_statku)
 );
+
 #5.3
+INSERT INTO statek VALUES
+(
+'statek bjorna',
+'drakkar',
+'1555-04-12',
+8022
+),
+(
+'statek wkinga 2',
+'drakkar',
+'1662-03-01',
+650
+);
+
+
 #5.4
 ALTER TABLE postac ADD funkcja VARCHAR(40);
+
 #5.5
 UPDATE postac SET funkcja='kapitan' WHERE id_postaci=1 OR id_postaci=5;
+
 #5.6
 ALTER TABLE postac ADD statek VARCHAR(40);
 ALTER TABLE postac ADD FOREIGN KEY (statek) REFERENCES statek(nazwa_statku);
+
 #5.7
-UPDATE postac SET statek='statek bjorna' WHERE id_postaci BETWEEN 1 and 2;
-UPDATE postac SET statek='statek bjorna' WHERE id_postaci BETWEEN 4 and 8;
+UPDATE postac SET statek='statek bjorna' WHERE rodzaj='wiking' OR rodzaj='ptak';
+
 #5.8
 DELETE FROM izba WHERE nazwa_izby='spizarnia';
+
 #5.9
 DROP TABLE izba;
 
