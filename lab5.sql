@@ -35,4 +35,4 @@ SELECT waga * 0.7 AS netto, waga * 0.3 AS odpadki FROM zasob WHERE rodzaj = 'jed
 #5.2
 SELECT * FROM zasob WHERE rodzaj IS NULL;
 #5.3
-SELECT DISTINCT rodzaj FROM zasob WHERE rodzaj LIKE 'Ba%' OR rodzaj LIKE '%os' ORDER BY rodzaj DESC;
+SELECT DISTINCT rodzaj FROM zasob WHERE nazwa LIKE 'Ba%' OR nazwa LIKE '%os' ORDER BY rodzaj DESC;
